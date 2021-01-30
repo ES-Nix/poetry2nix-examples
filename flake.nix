@@ -15,10 +15,6 @@
       packages.poetry2nixOCIImage = import ./poetry2nixOCIImage.nix {
         pkgs = nixpkgs.legacyPackages.${system};
       };
-
-    #defaultPackage = self.packages.${system}.myExampleFlake;
-
-    #packages.${system} = self.packages.myExampleFlake2;
   });
 
 }
