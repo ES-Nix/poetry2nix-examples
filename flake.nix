@@ -23,10 +23,24 @@
 
 
       devShell = pkgsAllowUnfree.mkShell {
+
         buildInputs = with pkgsAllowUnfree; [ poetry 
-                       gnumake
+
+                       # http://ix.io/2mF9
+                       ncurses
+                       xorg.libX11
+                       xorg.libXext
+                       xorg.libXrender
+                       xorg.libICE
+                       xorg.libSM
+                       glib
                        poetryEnv
                      ];
+
+          shellHook = ''
+            unset SOURCE_DATE_EPOCH
+            echo 'Working!'
+          '';
         };
 
   });
