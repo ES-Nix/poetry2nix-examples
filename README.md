@@ -17,5 +17,8 @@ nix build .#poetry2nixOCIImage
 nix develop --command poetry show
 ```
 
+
+nix develop github:ES-Nix/poetry2nix-examples --command poetry add pandas
+
 Broke:
 `nix flake clone github:ES-Nix/poetry2nix-examples --dest poetry2nix-examples`
