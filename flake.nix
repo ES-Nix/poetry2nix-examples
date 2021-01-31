@@ -34,7 +34,14 @@
                        xorg.libICE
                        xorg.libSM
                        glib
+
                        poetryEnv
+ 
+                       # Lets see
+                       commonsCompress
+                       gnutar
+                       lzma.bin
+                       git
                      ];
 
           shellHook = ''
