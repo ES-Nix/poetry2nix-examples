@@ -26,5 +26,10 @@ nix develop --command poetry show
 
 nix develop github:ES-Nix/poetry2nix-examples --command poetry add pandas
 
-Broke:
+Broken:
 `nix flake clone github:ES-Nix/poetry2nix-examples --dest poetry2nix-examples`
+
+nix flake clone git+ssh://git@github.com/ES-Nix/poetry2nix-examples.git --dest poetry2nix-examples
+
+Super thread about mach nix:
+https://discourse.nixos.org/t/mach-nix-create-python-environments-quick-and-easy/6858/78
