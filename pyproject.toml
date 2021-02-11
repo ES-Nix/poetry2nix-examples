@@ -8,8 +8,10 @@ homepage = "https://github.com"
 
 [tool.poetry.dependencies]
 python = "^3.8"
-pandas = "^1.2.1"
+#numpy = "1.16.0"
+#flask = "1.1.2"
 
+numpy = "^1.0.0"
 [tool.poetry.dev-dependencies]
 
 [tool.poetry.scripts]

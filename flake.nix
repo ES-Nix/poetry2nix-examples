@@ -1,9 +1,11 @@
 {
   description = "A usefull description";
 
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs";
   inputs.flake-utils.url = "github:numtide/flake-utils";
+  inputs.poetry2nix-src.url = "github:nix-community/poetry2nix";
 
-  outputs = { self, nixpkgs, flake-utils }:
+  outputs = { self, nixpkgs, flake-utils, poetry2nix-src }:
     flake-utils.lib.eachDefaultSystem (system:
     let
         pkgsAllowUnfree = import nixpkgs {
@@ -11,12 +13,18 @@
           config = { allowUnfree = true; };
         };
 
+        pkgs = import nixpkgs { inherit system; overlays = [ poetry2nix-src.overlay ]; };
+
         poetryEnv = import ./mkPoetryEnv.nix {
           pkgs = nixpkgs.legacyPackages.${system};
         };
-
     in
     {
+
+      poetryEnv = import ./mkPoetryEnv.nix {
+        pkgs = nixpkgs.legacyPackages.${system};
+      };
+
       packages.poetry2nixOCIImage = import ./poetry2nixOCIImage.nix {
         pkgs = nixpkgs.legacyPackages.${system};
       };
@@ -24,7 +32,8 @@
 
       devShell = pkgsAllowUnfree.mkShell {
 
-        buildInputs = with pkgsAllowUnfree; [ poetry 
+        buildInputs = with pkgsAllowUnfree; [
+                       poetry
 
                        # http://ix.io/2mF9
                        ncurses
@@ -42,6 +51,8 @@
                        gnutar
                        lzma.bin
                        git
+                       
+                      neovim
                      ];
 
           shellHook = ''
