@@ -9,7 +9,7 @@ python-versions = ">=3.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "e25b551a4e5ee3d1bbf46b2bacf3acb50eaf51e8a8f39890f84152dd638c5694"
+content-hash = "a9ae31a805890ee7443b95a0cd96edd9b2c6baa530655b75c3a0eed64c019a5a"
 
 [metadata.files]
 numpy = [
