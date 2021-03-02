@@ -33,3 +33,24 @@ nix flake clone git+ssh://git@github.com/ES-Nix/poetry2nix-examples.git --dest p
 
 Super thread about mach nix:
 https://discourse.nixos.org/t/mach-nix-create-python-environments-quick-and-easy/6858/78
+
+## Only numpy
+
+```
+nix develop github:ES-Nix/poetry2nix-examples/2cb6663e145bbf8bf270f2f45c869d69c657fef2
+```
+
+```
+nix build github:ES-Nix/poetry2nix-examples/2cb6663e145bbf8bf270f2f45c869d69c657fef2#poetry2nixOCIImage
+```
+
+```
+nix develop github:davhau/mach-nix#shellWith.numpy
+```
+
+```
+git clone https://github.com/ES-Nix/poetry2nix-examples.git
+cd poetry2nix-examples
+git checkout 2cb6663e145bbf8bf270f2f45c869d69c657fef2
+nix build .#poetry2nixOCIImage
+```

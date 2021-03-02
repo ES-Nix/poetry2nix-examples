@@ -3,20 +3,19 @@
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -euxo pipefail
 
+sudo rm --force poetry2nixOCIImage.tar.gz
 
-nix build .#poetry2nixOCIImage
+nix build .#poetry2nixOCIImage --out-link poetry2nixOCIImage.tar.gz
 
+podman load < poetry2nixOCIImage.tar.gz
+ 
 
-cp result poetry2nixOCIImage.tar.gz
-
-docker load < poetry2nixOCIImage.tar.gz
-
-docker \                               
+podman \
 run \
---interactive \
---publish=5000:5000 \
---rm \
---tty \
+--interactive=true \
+--rm=true \
+--tty=true \
 numtild-dockertools-poetry2nix:0.0.1 \
 nixfriday
 
+sudo rm --force poetry2nixOCIImage.tar.gz
