@@ -71,3 +71,19 @@ run \
 localhost/numtild-dockertools-poetry2nix:0.0.1 \
 brazilian_money_format
 ```
+
+To run in interative mode (have a shell inside the contaienr);
+```
+podman \
+run \
+--interactive=true \
+--rm=true \
+--tty=true \
+localhost/numtild-dockertools-poetry2nix:0.0.1
+```
+
+`ls /nix/store/*-python3.8-brazilian-money-format-0.1.0/`
+
+`cat /nix/store/*-python3.8-brazilian-money-format-0.1.0/bin/brazilian_money_format`
+
+`file /nix/store/*-glibc-locales-2.32-35/lib/locale/locale-archive`

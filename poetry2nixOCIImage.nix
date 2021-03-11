@@ -8,12 +8,12 @@ in
     contents = with pkgs; [
       poetry2nixOCI
 
-      #coreutils
-      #file
-      #glibcLocales
-      #which
+      coreutils
+      file
+      glibcLocales
+      which
       #python38Full
-      #neovim
+      neovim
     ];
 
     config.Entrypoint = [ "${pkgs.bashInteractive}/bin/bash" ];
