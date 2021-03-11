@@ -54,3 +54,20 @@ cd poetry2nix-examples
 git checkout 2cb6663e145bbf8bf270f2f45c869d69c657fef2
 nix build .#poetry2nixOCIImage
 ```
+
+## The locale thing
+
+
+```
+nix build github:ES-Nix/poetry2nix-examples/d55b1d471dd3a7dba878352df465a23e22f60101#poetry2nixOCIImage --out-link poetry2nixOCIImage.tar.gz
+
+podman load < poetry2nixOCIImage.tar.gz
+
+podman \
+run \
+--interactive=true \
+--rm=true \
+--tty=true \
+localhost/numtild-dockertools-poetry2nix:0.0.1 \
+brazilian_money_format
+```
