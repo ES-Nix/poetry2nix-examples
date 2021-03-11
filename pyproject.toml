@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "nixfriday"
+name = "brazilian_money_format"
 version = "0.1.0"
 description = ""
 authors = ["Your Name <you@example.com>"]
@@ -12,13 +12,11 @@ python = "^3.8"
 #pandas = { git = "https://github.com/pandas-dev/pandas.git", tag = "v1.1.2" }
 #numpy = { git = "https://github.com/numpy/numpy.git", tag = "v1.20.1 " }
 #numpy = "1.16.0"
-flask = "1.1.2"
 
-numpy = "^1.0.0"
 [tool.poetry.dev-dependencies]
 
 [tool.poetry.scripts]
-nixfriday = "nixfriday:main"
+brazilian_money_format = "brazilian_money_format:main"
 
 [build-system]
 requires = ["poetry>=0.12"]

@@ -15,8 +15,12 @@
 
         pkgs = import nixpkgs { inherit system; overlays = [ poetry2nix-src.overlay ]; };
 
-        poetryEnv = import ./mkPoetryEnv.nix {
-          pkgs = nixpkgs.legacyPackages.${system};
+        #poetryEnv = import ./mkPoetryEnv.nix {
+        #  pkgs = nixpkgs.legacyPackages.${system};
+        #};
+        config = {
+          projectDir = ./.;
+          #propagatedBuildInputs = runtimeDeps;
         };
     in
     {
@@ -36,23 +40,24 @@
                        poetry
 
                        # http://ix.io/2mF9
-                       ncurses
-                       xorg.libX11
-                       xorg.libXext
-                       xorg.libXrender
-                       xorg.libICE
-                       xorg.libSM
-                       glib
+                       #ncurses
+                       #xorg.libX11
+                       #xorg.libXext
+                       #xorg.libXrender
+                       #xorg.libICE
+                       #xorg.libSM
+                       #glib
 
-                       poetryEnv
+                       #poetryEnv
+                       (pkgsAllowUnfree.poetry2nix.mkPoetryEnv config)
  
                        # Lets see
-                       commonsCompress
-                       gnutar
-                       lzma.bin
-                       git
+                       #commonsCompress
+                       #gnutar
+                       #lzma.bin
+                       #git
                        
-                      neovim
+                       neovim
                      ];
 
           shellHook = ''

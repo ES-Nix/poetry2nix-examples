@@ -6,5 +6,7 @@ let
     poetrylock = ./poetry.lock;
   };
 in
-  pythonEnv
+  pkgs.mkShell {
+  buildInputs = [ pythonEnv pkgs.glibcLocales ];
+}
 
