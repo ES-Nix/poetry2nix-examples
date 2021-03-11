@@ -3,3 +3,6 @@ result
 .idea/
 
 __pycache__/
+
+*.tar.gz
+
