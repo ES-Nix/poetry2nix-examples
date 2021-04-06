@@ -8,10 +8,6 @@ homepage = "https://github.com"
 
 [tool.poetry.dependencies]
 python = "^3.8"
-#pandas = "^1.1.1"
-#pandas = { git = "https://github.com/pandas-dev/pandas.git", tag = "v1.1.2" }
-#numpy = { git = "https://github.com/numpy/numpy.git", tag = "v1.20.1 " }
-#numpy = "1.16.0"
 
 [tool.poetry.dev-dependencies]
 
