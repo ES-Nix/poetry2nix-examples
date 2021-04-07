@@ -15,17 +15,11 @@
 
         pkgs = import nixpkgs { inherit system; overlays = [ poetry2nix-src.overlay ]; };
 
-        #runtimeDeps = with pkgsAllowUnfree; [ hello cowsay ];
         config = {
           projectDir = ./.;
-        #  propagatedBuildInputs = runtimeDeps;
         };
     in
     {
-      packages.poetry2nixOCIImage = import ./poetry2nixOCIImage.nix {
-        pkgs = nixpkgs.legacyPackages.${system};
-      };
-
       devShell = pkgsAllowUnfree.mkShell {
         buildInputs = with pkgsAllowUnfree; [
                        poetry
