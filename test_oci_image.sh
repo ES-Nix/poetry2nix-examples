@@ -15,8 +15,9 @@ run \
 --interactive=true \
 --rm=true \
 --tty=true \
+--user=app_user \
 numtild-dockertools-poetry2nix:0.0.1 \
-brazilian_money_format
+minimal_python_builtin_scrip
 
 
 sudo rm --force poetry2nixOCIImage.tar.gz
