@@ -119,3 +119,21 @@ rm /lib/locale/locale-archive
 python3 -c 'import locale; locale.setlocale(locale.LC_ALL, "pt_BR.UTF-8")'
 COMMANDS
 ```
+
+
+```bash
+# localedef pt_BR -i pt_BR -f ISO-8859-1
+# localedef pt_BR.ISO-8859-1 -i pt_BR -f ISO-8859-1
+# localedef pt_BR.ISO8859-1 -i pt_BR -f ISO-8859-1
+```
+From: [Reconfigurar as "LOCALES" passando de UTF-8 para ISO-8859-1](https://www.vivaolinux.com.br/dica/Reconfigurar-as-LOCALES-passando-de-UTF8-para-ISO88591)
+
+
+`localedef -c -f UTF-8 -i pt_BR pt_BR.UTF-8`
+[ Instalação e configuração do sistema básico](https://forum.archlinux-br.org/viewtopic.php?pid=23363#p23363)
+
+
+`strings /usr/lib/locale/locale-archive | less`
+https://wiki.gentoo.org/wiki/Localization/Guide
+
+[Locales in GLIBC](https://sourceware.org/glibc/wiki/Locales)
