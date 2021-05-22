@@ -1,71 +1,113 @@
 {
-  description = "A usefull description";
+  description = "Flake do income-back";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs";
-  inputs.flake-utils.url = "github:numtide/flake-utils";
-  inputs.poetry2nix-src.url = "github:nix-community/poetry2nix";
+  inputs = {
+    flake-utils.url = "github:numtide/flake-utils";
+    podman-rootless.url = "github:ES-Nix/podman-rootless";
+  };
 
-  outputs = { self, nixpkgs, flake-utils, poetry2nix-src }:
+  outputs = { self, nixpkgs, flake-utils, podman-rootless }:
     flake-utils.lib.eachDefaultSystem (system:
-    let
+      let
+
         pkgsAllowUnfree = import nixpkgs {
           system = "x86_64-linux";
           config = { allowUnfree = true; };
         };
 
-        pkgs = import nixpkgs { inherit system; overlays = [ poetry2nix-src.overlay ]; };
-
-        #poetryEnv = import ./mkPoetryEnv.nix {
-        #  pkgs = nixpkgs.legacyPackages.${system};
-        #};
         config = {
           projectDir = ./.;
-          #propagatedBuildInputs = runtimeDeps;
         };
-    in
-    {
 
-      poetryEnv = import ./mkPoetryEnv.nix {
-        pkgs = nixpkgs.legacyPackages.${system};
-      };
+        shellHookEntrypoint = pkgsAllowUnfree.writeShellScriptBin "shell-hook-entrypoint" ''
+            # TODO:
+            export TMPDIR=/tmp
 
-      packages.poetry2nixOCIImage = import ./poetry2nixOCIImage.nix {
-        pkgs = nixpkgs.legacyPackages.${system};
-      };
+            echo "Entering the nix devShell"
+
+            # TODO:
+            podman-setup-script
+            podman-capabilities
+
+            ${build}/bin/build
+            ${podmanTestFlaskAPI}/bin/podman-test-flask-API
+        '';
+
+        build = pkgsAllowUnfree.writeShellScriptBin "build" ''
+            nix build .#poetry2nixOCIImage
+            podman load < result
+        '';
+
+        podmanTestFlaskAPI = pkgsAllowUnfree.writeShellScriptBin "podman-test-flask-API" ''
+            set -e
+            POD_NAME=play-with-flask
+
+        	podman \
+            pod \
+            rm \
+            --force \
+            --ignore \
+            $POD_NAME
+
+        	podman \
+            pod \
+            create \
+            --publish=5000:5000 \
+            --name=$POD_NAME
+
+            podman \
+            run \
+            --detach=true \
+            --pod=$POD_NAME \
+            --rm=true \
+            --tty=true \
+            --user=app_user \
+            localhost/numtild-dockertools-poetry2nix:0.0.1 \
+            nixfriday
+
+            sleep 3
+
+            curl localhost:500 | rg 'Hello world!!'
+
+            podman \
+            pod \
+            rm \
+            --force \
+            --ignore \
+            $POD_NAME
+
+            unset POD_NAME
+        '';
 
 
-      devShell = pkgsAllowUnfree.mkShell {
+      in
+      {
+        packages.poetry2nixOCIImage = import ./poetry2nixOCIImage.nix {
+          pkgs = nixpkgs.legacyPackages.${system};
+        };
+        #packages.${system} = self.packages.poetry2nixOCIImage;
 
-        buildInputs = with pkgsAllowUnfree; [
-                       poetry
+        poetryEnv = import ./mkPoetryEnv.nix.nix {
+          pkgs = nixpkgs.legacyPackages.${system};
+        };
 
-                       # http://ix.io/2mF9
-                       #ncurses
-                       #xorg.libX11
-                       #xorg.libXext
-                       #xorg.libXrender
-                       #xorg.libICE
-                       #xorg.libSM
-                       #glib
+        env = pkgsAllowUnfree.poetry2nix.mkPoetryEnv config;
 
-                       #poetryEnv
-                       (pkgsAllowUnfree.poetry2nix.mkPoetryEnv config)
- 
-                       # Lets see
-                       #commonsCompress
-                       #gnutar
-                       #lzma.bin
-                       #git
-                       
-                       neovim
-                     ];
+        devShell = pkgsAllowUnfree.mkShell {
+          #buildInputs = with pkgs; [ env ]
+          #  ++ minimalUtils;
+          buildInputs = with pkgsAllowUnfree; [
+            curl
+            (pkgsAllowUnfree.poetry2nix.mkPoetryEnv config)
+            podman-rootless.defaultPackage.${system}
+            poetry
+            ripgrep
+            shellHookEntrypoint
+          ];
 
           shellHook = ''
-            unset SOURCE_DATE_EPOCH
-            echo 'Working!'
+            shell-hook-entrypoint
           '';
         };
-
-  });
-
+      });
 }

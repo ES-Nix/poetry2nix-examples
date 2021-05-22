@@ -69,5 +69,57 @@ run \
 --rm=true \
 --tty=true \
 localhost/numtild-dockertools-poetry2nix:0.0.1 \
-brazilian_money_format
+flask_minimal_example
 ```
+
+
+
+nix-env -f '<nixpkgs>' -iA nix-direnv
+
+echo 'source $HOME/.nix-profile/share/nix-direnv/direnvrc' >> $HOME/.direnvrc
+
+ echo 'keep-outputs = true' >> $HOME/.config/nix/nix.conf
+ echo 'keep-derivations = true' >> $HOME/.config/nix/nix.conf
+ 
+
+
+mkdir play-nix-direnv
+
+cd play-nix-direnv
+
+file_string=$(echo -e "$(cat <<"EOF"
+{
+  description = "A very basic flake";
+  # Provides abstraction to boiler-code when specifying multi-platform outputs.
+  inputs.flake-utils.url = "github:numtide/flake-utils";
+  outputs = { self, nixpkgs, flake-utils }:
+    flake-utils.lib.eachDefaultSystem (system: let
+      pkgs = nixpkgs.legacyPackages.${system};
+    in {
+      devShell = pkgs.mkShell {
+        nativeBuildInputs = [ pkgs.hello ];
+      };
+    });
+}
+EOF
+)")
+
+echo "$file_string" > flake.nix
+
+
+echo "use flake" >> .envrc
+
+
+echo 'eval "$(direnv hook bash)"' >> ~/bashrc
+
+
+git init
+git add .
+
+nix shell nixpkgs#direnv
+
+sudo apt-get update
+
+sudo apt-get install -y direnv
+
+
