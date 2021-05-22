@@ -107,7 +107,7 @@
           ];
 
           shellHook = ''
-            shell-hook-entrypoint
+            echo "Entering the nix devShell"
           '';
         };
       });

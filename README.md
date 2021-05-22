@@ -73,6 +73,8 @@ flask_minimal_example
 ```
 
 
+## The direnv and nix-direnv
+
 
 nix-env -f '<nixpkgs>' -iA nix-direnv
 
@@ -123,3 +125,14 @@ sudo apt-get update
 sudo apt-get install -y direnv
 
 
+## 
+
+nix develop --command shell-hook-entrypoint
+
+```bash
+nix \
+develop \
+github:ES-Nix/poetry2nix-examples/flask-hello-in-oci-podman-rootless \
+--command \
+shell-hook-entrypoint
+```
