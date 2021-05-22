@@ -38,7 +38,7 @@
         '';
 
         build_and_load = pkgsAllowUnfree.writeShellScriptBin "build_and_load" ''
-          nix build github:ES-Nix/podman-rootless/flask-hello-in-oci-podman-rootless#poetry2nixOCIImage
+          nix build github:ES-Nix/poetry2nix-examples/flask-hello-in-oci-podman-rootless#poetry2nixOCIImage
           podman load < result
         '';
 
@@ -70,7 +70,7 @@
             localhost/numtild-dockertools-poetry2nix:0.0.1 \
             flask_minimal_example
 
-          sleep 2
+          sleep 5
 
           curl localhost:5000 | rg 'Hello world!!'
 
