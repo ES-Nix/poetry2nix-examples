@@ -8,7 +8,7 @@ sudo rm --force poetry2nixOCIImage.tar.gz
 nix build .#poetry2nixOCIImage --out-link poetry2nixOCIImage.tar.gz
 
 podman load < poetry2nixOCIImage.tar.gz
- 
+
 
 #podman \
 #run \
@@ -29,7 +29,7 @@ podman load < poetry2nixOCIImage.tar.gz
 
 sudo rm --force poetry2nixOCIImage.tar.gz
 
-podman rm oci_container
+podman rm --force --ignore oci_container
 podman \
 run \
 --interactive=true \
@@ -53,3 +53,4 @@ gzip -dk UTF-8
 env
 python -c 'import locale; locale.setlocale(locale.LC_ALL, "pt_BR.UTF-8")'
 COMMANDS
+podman rm --force --ignore oci_container
