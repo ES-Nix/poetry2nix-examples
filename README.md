@@ -134,5 +134,5 @@ nix \
 develop \
 github:ES-Nix/poetry2nix-examples/flask-hello-in-oci-podman-rootless \
 --command \
-shell-hook-entrypoint
+hook
 ```
