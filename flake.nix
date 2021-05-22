@@ -19,10 +19,9 @@
           projectDir = ./.;
         };
 
-        shellHookEntrypoint = pkgsAllowUnfree.writeShellScriptBin "shell-hook-entrypoint" ''
+        hook = pkgsAllowUnfree.writeShellScriptBin "hook" ''
           # TODO:
           export TMPDIR=/tmp
-          echo "Entering the nix devShell"
 
           # TODO:
           podman-setup-script
@@ -103,10 +102,12 @@
             podman-rootless.defaultPackage.${system}
             poetry
             ripgrep
-            shellHookEntrypoint
+            hook
           ];
 
           shellHook = ''
+            # TODO:
+            export TMPDIR=/tmp
             echo "Entering the nix devShell"
           '';
         };
