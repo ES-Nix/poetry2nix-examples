@@ -1,5 +1,5 @@
 {
-  description = "Flake do income-back";
+  description = "A nix flake minimal flask example with podman rootless";
 
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
@@ -20,27 +20,31 @@
         };
 
         shellHookEntrypoint = pkgsAllowUnfree.writeShellScriptBin "shell-hook-entrypoint" ''
-            # TODO:
-            export TMPDIR=/tmp
+          # TODO:
+          export TMPDIR=/tmp
+          echo "Entering the nix devShell"
 
-            echo "Entering the nix devShell"
+          # TODO:
+          podman-setup-script
+          podman-capabilities
 
-            # TODO:
-            podman-setup-script
-            podman-capabilities
-
-            ${build}/bin/build
-            ${podmanTestFlaskAPI}/bin/podman-test-flask-API
+          ${build_and_load}/bin/build_and_load
+          ${podmanTestFlaskAPI}/bin/podman-test-flask-API
         '';
 
-        build = pkgsAllowUnfree.writeShellScriptBin "build" ''
-            nix build .#poetry2nixOCIImage
-            podman load < result
+        build_and_load_dev = pkgsAllowUnfree.writeShellScriptBin "build_and_load_dev" ''
+          nix build .#poetry2nixOCIImage
+          podman load < result
+        '';
+
+        build_and_load = pkgsAllowUnfree.writeShellScriptBin "build_and_load" ''
+          nix build github:ES-Nix/podman-rootless/flask-hello-in-oci-podman-rootless#poetry2nixOCIImage
+          podman load < result
         '';
 
         podmanTestFlaskAPI = pkgsAllowUnfree.writeShellScriptBin "podman-test-flask-API" ''
-            set -e
-            POD_NAME=play-with-flask
+          set -e
+          POD_NAME=play-with-flask
 
         	podman \
             pod \
@@ -55,37 +59,36 @@
             --publish=5000:5000 \
             --name=$POD_NAME
 
-            podman \
+          podman \
             run \
             --detach=true \
+            --interactive=true \
             --pod=$POD_NAME \
             --rm=true \
             --tty=true \
             --user=app_user \
             localhost/numtild-dockertools-poetry2nix:0.0.1 \
-            nixfriday
+            flask_minimal_example
 
-            sleep 3
+          sleep 2
 
-            curl localhost:500 | rg 'Hello world!!'
+          curl localhost:5000 | rg 'Hello world!!'
 
-            podman \
+          podman \
             pod \
             rm \
             --force \
             --ignore \
             $POD_NAME
 
-            unset POD_NAME
+          unset POD_NAME
         '';
-
 
       in
       {
         packages.poetry2nixOCIImage = import ./poetry2nixOCIImage.nix {
           pkgs = nixpkgs.legacyPackages.${system};
         };
-        #packages.${system} = self.packages.poetry2nixOCIImage;
 
         poetryEnv = import ./mkPoetryEnv.nix.nix {
           pkgs = nixpkgs.legacyPackages.${system};
@@ -94,8 +97,6 @@
         env = pkgsAllowUnfree.poetry2nix.mkPoetryEnv config;
 
         devShell = pkgsAllowUnfree.mkShell {
-          #buildInputs = with pkgs; [ env ]
-          #  ++ minimalUtils;
           buildInputs = with pkgsAllowUnfree; [
             curl
             (pkgsAllowUnfree.poetry2nix.mkPoetryEnv config)
