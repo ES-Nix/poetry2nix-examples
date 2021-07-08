@@ -4,8 +4,13 @@
 https://stackoverflow.com/a/59316578
 
 ```bash
-poetry build --format=wheel
+nix develop
 nix shell nixpkgs#poetry --command poetry build --format=wheel
+```
+
+```bash
+nix develop
+poetry build --format=wheel
 ```
 
 ```bash
