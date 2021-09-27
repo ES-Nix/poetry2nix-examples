@@ -41,8 +41,18 @@ pkgs.dockerTools.buildLayeredImage {
   #Cmd = [ "${pkgs.bashInteractive}/bin/bash" ];
 
   #    Entrypoint = [ entrypoint ];
-      Env = [
-          "SSL_CERT_FILE=${pkgs.cacert}/etc/ssl/certs/ca-bunle.crt"
+      Env = with pkgs; [
+          "SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bunle.crt"
+# TODO: it needs a big refactor
+#          "PATH=/root/.nix-profile/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:/nix/var/nix/profiles/default/sbin:/bin:/sbin:/usr/bin:/usr/sbin"
+#          "MANPATH=/root/.nix-profile/share/man:/home/nixuser/.nix-profile/share/man:/run/current-system/sw/share/man"
+#          "NIX_PAGER=cat"
+#          "NIX_PATH=nixpkgs=${nixFlakes}"
+#          "NIX_SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt"
+#          "ENV=/etc/profile"
+#          "GIT_SSL_CAINFO=${cacert}/etc/ssl/certs/ca-bunle.crt"
+#          "USER=root"
+#          "HOME=/root"
       ];
     };
 }
