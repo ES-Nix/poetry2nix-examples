@@ -1,15 +1,23 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
 [tool.poetry]
-name = "my_package"
-version = "0.1.0"
+name = "test-bug-drf-spectacular"
+version = "0.0.1"
 description = ""
-authors = ["Your Name <you@example.com>"]
+authors = ["Abc"]
+readme = "README.md"
+packages = [{include = "**/*.py"}]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+drf-spectacular="0.17.*"
 
 [tool.poetry.scripts]
-my-script = "my_package.log_revision:start"
 
-[build-system]
-requires = ["poetry_core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+# poetry config --list
+[virtualenvs]
+virtualenvs.create = true
+virtualenvs.in-project = true
+virtualenvs.path = "."
