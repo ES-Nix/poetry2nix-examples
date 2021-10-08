@@ -13,59 +13,41 @@
           config = { allowUnfree = true; };
         };
 
-        pkgs = import nixpkgs { inherit system; overlays = [ poetry2nix-src.overlay ]; };
-
-        #poetryEnv = import ./mkPoetryEnv.nix {
-        #  pkgs = nixpkgs.legacyPackages.${system};
-        #};
-        config = {
-          projectDir = ./.;
-          #propagatedBuildInputs = runtimeDeps;
+        poetryEnv = import ./mkPoetryEnv.nix {
+          pkgs = nixpkgs.legacyPackages.${system};
         };
-    in
-    {
+      in
+      {
+        devShell = pkgsAllowUnfree.mkShell {
+          buildInputs = with pkgsAllowUnfree; [
+#            poetryEnv
+            firefox
+            geckodriver
+            poetry
+            python38
+          ];
 
-      poetryEnv = import ./mkPoetryEnv.nix {
-        pkgs = nixpkgs.legacyPackages.${system};
-      };
+         shellHook = ''
+            export TMPDIR=/tmp
 
-      packages.poetry2nixOCIImage = import ./poetry2nixOCIImage.nix {
-        pkgs = nixpkgs.legacyPackages.${system};
-      };
+            # Set SOURCE_DATE_EPOCH so that we can use python wheels.
+            # This compromises immutability, but is what we need
+            # to allow package installs from PyPI
+            export SOURCE_DATE_EPOCH=$(date +%s)
 
+            VENV_DIR="$PWD"/.venv
 
-      devShell = pkgsAllowUnfree.mkShell {
+            export PATH="$VENV_DIR"/bin:"$PATH"
+            export LANG=en_US.UTF-8
 
-        buildInputs = with pkgsAllowUnfree; [
-                       poetry
+            # https://python-poetry.org/docs/configuration/
+            export POETRY_VIRTUALENVS_CREATE=true
+            export PIP_CACHE_DIR="$PWD"/.local/pip-cache
 
-                       # http://ix.io/2mF9
-                       #ncurses
-                       #xorg.libX11
-                       #xorg.libXext
-                       #xorg.libXrender
-                       #xorg.libICE
-                       #xorg.libSM
-                       #glib
-
-                       #poetryEnv
-                       (pkgsAllowUnfree.poetry2nix.mkPoetryEnv config)
- 
-                       # Lets see
-                       #commonsCompress
-                       #gnutar
-                       #lzma.bin
-                       #git
-                       
-                       neovim
-                     ];
-
-          shellHook = ''
-            unset SOURCE_DATE_EPOCH
-            echo 'Working!'
+            # Dirty fix for Linux systems
+            # https://nixos.wiki/wiki/Packaging/Quirks_and_Caveats
+            export LD_LIBRARY_PATH=${pkgsAllowUnfree.stdenv.cc.cc.lib}/lib/:"$LD_LIBRARY_PATH"
           '';
         };
-
   });
-
 }
