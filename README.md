@@ -1,4 +1,8 @@
 
+#
+
+Example adapted from:
+https://selenium-python.readthedocs.io/getting-started.html
 
 
 ```bash
