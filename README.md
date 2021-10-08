@@ -16,6 +16,8 @@ develop \
 A few references:
 
 - The import of the `yaml` in drf-spectacular https://github.com/tfranzel/drf-spectacular/blame/4b8975d6d2b34a961506d9f20f226818f2c88495/drf_spectacular/renderers.py#L5
+- The PyYAML in requirements/base.txt https://github.com/tfranzel/drf-spectacular/blame/4b8975d6d2b34a961506d9f20f226818f2c88495/requirements/base.txt#L4
+- May be useful to trace this bug https://github.com/python-poetry/poetry/issues/2094#issuecomment-889882745
 - The `propagatedBuildInputs` list importing the `pyyaml` https://github.com/NixOS/nixpkgs/blob/b16c74abd3b149b09613629219716202c5436427/pkgs/tools/admin/awscli2/default.nix#L83
 - Might be related https://github.com/NixOS/nixpkgs/issues/42903 and https://github.com/NixOS/nixpkgs/issues/28325
 
