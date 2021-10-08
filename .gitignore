@@ -3,6 +3,6 @@ result
 .idea/
 
 __pycache__/
-
+.venv
 *.tar.gz
 

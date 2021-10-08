@@ -7,6 +7,6 @@ let
   };
 in
   pkgs.mkShell {
-  buildInputs = [ pythonEnv pkgs.glibcLocales ];
+  buildInputs = [ pythonEnv ];
 }
 

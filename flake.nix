@@ -15,57 +15,24 @@
 
         pkgs = import nixpkgs { inherit system; overlays = [ poetry2nix-src.overlay ]; };
 
-        #poetryEnv = import ./mkPoetryEnv.nix {
-        #  pkgs = nixpkgs.legacyPackages.${system};
-        #};
-        config = {
+        env = pkgsAllowUnfree.poetry2nix.mkPoetryEnv {
+          poetrylock = ./poetry.lock;
+          # TODO: is it correct or we should use lib clean source?
           projectDir = ./.;
-          #propagatedBuildInputs = runtimeDeps;
+          python = pkgsAllowUnfree.python3;
         };
     in
     {
-
-      poetryEnv = import ./mkPoetryEnv.nix {
-        pkgs = nixpkgs.legacyPackages.${system};
-      };
-
-      packages.poetry2nixOCIImage = import ./poetry2nixOCIImage.nix {
-        pkgs = nixpkgs.legacyPackages.${system};
-      };
-
-
       devShell = pkgsAllowUnfree.mkShell {
-
         buildInputs = with pkgsAllowUnfree; [
+                       env
                        poetry
-
-                       # http://ix.io/2mF9
-                       #ncurses
-                       #xorg.libX11
-                       #xorg.libXext
-                       #xorg.libXrender
-                       #xorg.libICE
-                       #xorg.libSM
-                       #glib
-
-                       #poetryEnv
-                       (pkgsAllowUnfree.poetry2nix.mkPoetryEnv config)
- 
-                       # Lets see
-                       #commonsCompress
-                       #gnutar
-                       #lzma.bin
-                       #git
-                       
-                       neovim
+                       python3
                      ];
 
           shellHook = ''
             unset SOURCE_DATE_EPOCH
-            echo 'Working!'
           '';
         };
-
   });
-
 }
