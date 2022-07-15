@@ -23,13 +23,17 @@ nix build .#poetry2nixOCIImage
 nix develop --command poetry show
 ```
 
-
+```bash
 nix develop github:ES-Nix/poetry2nix-examples --command poetry add pandas
+```
 
-Broken:
-`nix flake clone github:ES-Nix/poetry2nix-examples --dest poetry2nix-examples`
+```bash
+nix flake clone github:ES-Nix/poetry2nix-examples --dest poetry2nix-examples/
+```
 
-nix flake clone git+ssh://git@github.com/ES-Nix/poetry2nix-examples.git --dest poetry2nix-examples
+```bash
+nix flake clone git+ssh://git@github.com/ES-Nix/poetry2nix-examples.git --dest poetry2nix-examples/
+```
 
 Super thread about mach nix:
 https://discourse.nixos.org/t/mach-nix-create-python-environments-quick-and-easy/6858/78
@@ -58,8 +62,11 @@ nix build .#poetry2nixOCIImage
 ## The locale thing
 
 
-```
-nix build github:ES-Nix/poetry2nix-examples/d55b1d471dd3a7dba878352df465a23e22f60101#poetry2nixOCIImage --out-link poetry2nixOCIImage.tar.gz
+```bash
+nix \
+build \
+github:ES-Nix/poetry2nix-examples/d55b1d471dd3a7dba878352df465a23e22f60101#poetry2nixOCIImage \
+--out-link poetry2nixOCIImage.tar.gz
 
 podman load < poetry2nixOCIImage.tar.gz
 
@@ -72,8 +79,25 @@ localhost/numtild-dockertools-poetry2nix:0.0.1 \
 brazilian_money_format
 ```
 
-To run in interative mode (have a shell inside the contaienr);
+
+```bash
+nix \
+build \
+'.#poetry2nixOCIImage' \
+--out-link link-poetry2nixOCIImage.tar.gz \
+&& echo \
+&& podman load < link-poetry2nixOCIImage.tar.gz \
+&& podman \
+run \
+--interactive=true \
+--rm=true \
+--tty=true \
+localhost/numtild-dockertools-poetry2nix:0.0.1
 ```
+
+
+To run in interative mode (have a shell inside the container);
+```bash
 podman \
 run \
 --interactive=true \
@@ -82,11 +106,17 @@ run \
 localhost/numtild-dockertools-poetry2nix:0.0.1
 ```
 
-`ls /nix/store/*-python3.8-brazilian-money-format-0.1.0/`
+```bash
+ls /nix/store/*-python3.8-brazilian-money-format-0.1.0/
+```
 
-`cat /nix/store/*-python3.8-brazilian-money-format-0.1.0/bin/brazilian_money_format`
+```bash
+cat /nix/store/*-python3.8-brazilian-money-format-0.1.0/bin/brazilian_money_format
+```
 
-`file /nix/store/*-glibc-locales-2.32-35/lib/locale/locale-archive`
+```bash
+file /nix/store/*-glibc-locales-2.32-35/lib/locale/locale-archive
+```
 
 ### One liner to reproduce in ubuntu OCI image
 
