@@ -32,7 +32,11 @@ nix flake clone github:ES-Nix/poetry2nix-examples --dest poetry2nix-examples/
 ```
 
 ```bash
-nix flake clone git+ssh://git@github.com/ES-Nix/poetry2nix-examples.git --dest poetry2nix-examples/
+nix \
+flake \
+clone \
+git+ssh://git@github.com/ES-Nix/poetry2nix-examples.git \
+--dest poetry2nix-examples/
 ```
 
 Super thread about mach nix:
