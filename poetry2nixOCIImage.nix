@@ -46,7 +46,7 @@ pkgs.dockerTools.buildLayeredImage {
 # TODO: it needs a big refactor
 #          "PATH=/root/.nix-profile/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:/nix/var/nix/profiles/default/sbin:/bin:/sbin:/usr/bin:/usr/sbin"
 #          "MANPATH=/root/.nix-profile/share/man:/home/nixuser/.nix-profile/share/man:/run/current-system/sw/share/man"
-#          "NIX_PAGER=cat"
+#          "NIX_PAGER=cat" # TODO: document it
 #          "NIX_PATH=nixpkgs=${nixFlakes}"
 #          "NIX_SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt"
 #          "ENV=/etc/profile"

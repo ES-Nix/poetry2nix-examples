@@ -89,12 +89,9 @@
           pkgs = nixpkgs.legacyPackages.${system};
         };
 
-        env = pkgsAllowUnfree.poetry2nix.mkPoetryEnv config;
-
         devShell = pkgsAllowUnfree.mkShell {
           buildInputs = with pkgsAllowUnfree; [
             curl
-            # (pkgsAllowUnfree.poetry2nix.mkPoetryEnv config)
             poetryEnv
             podman-rootless.defaultPackage.${system}
             poetry
