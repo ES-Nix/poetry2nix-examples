@@ -5,9 +5,7 @@ let
     poetrylock = ./poetry.lock;
     pyproject = ./pyproject.toml;
 
-    config = {
-      projectDir = ./.;
-    };
+    projectDir = ./.;
   };
 in
 pythonEnv
