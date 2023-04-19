@@ -14,10 +14,10 @@ nix build github:ES-Nix/poetry2nix-examples/a39f8cf6f06af754d440458b7e192e49c957
 ```
 
 ```bash
-git clone https://github.com/ES-Nix/poetry2nix-examples.git
-cd poetry2nix-examples
-git checkout ed9e9bee7b58e9ceee4d453c72e799bee838a92b
-nix build .#poetry2nixOCIImage
+git clone https://github.com/ES-Nix/poetry2nix-examples.git \
+&& cd poetry2nix-examples \
+&& git checkout ed9e9bee7b58e9ceee4d453c72e799bee838a92b \
+&& nix build .#poetry2nixOCIImage
 ```
 
 ```bash
@@ -55,16 +55,20 @@ nix develop github:davhau/mach-nix#shellWith.numpy
 ```
 
 ```bash
-git clone https://github.com/ES-Nix/poetry2nix-examples.git
-cd poetry2nix-examples
-git checkout 2cb6663e145bbf8bf270f2f45c869d69c657fef2
-nix build .#poetry2nixOCIImage
+git clone https://github.com/ES-Nix/poetry2nix-examples.git \
+&& cd poetry2nix-examples \
+&& git checkout 2cb6663e145bbf8bf270f2f45c869d69c657fef2 \
+&& nix build .#poetry2nixOCIImage
 ```
 
 ## The locale thing
 
 ```bash
-nix build github:ES-Nix/poetry2nix-examples/d55b1d471dd3a7dba878352df465a23e22f60101#poetry2nixOCIImage --out-link poetry2nixOCIImage.tar.gz
+nix \
+build \
+github:ES-Nix/poetry2nix-examples/d55b1d471dd3a7dba878352df465a23e22f60101#poetry2nixOCIImage \
+--out-link \
+poetry2nixOCIImage.tar.gz
 
 podman load < poetry2nixOCIImage.tar.gz
 
@@ -77,42 +81,6 @@ localhost/numtild-dockertools-poetry2nix:0.0.1 \
 flask_minimal_example
 ```
 
-
-## The direnv and nix-direnv
-
-```bash
-nix-env -f '<nixpkgs>' -iA nix-direnv
-
-echo 'source $HOME/.nix-profile/share/nix-direnv/direnvrc' >> $HOME/.direnvrc
-
- echo 'keep-outputs = true' >> $HOME/.config/nix/nix.conf
- echo 'keep-derivations = true' >> $HOME/.config/nix/nix.conf
-```
-
-```bash
-mkdir play-nix-direnv
-
-cd play-nix-direnv
-
-file_string=$(echo -e "$(cat <<"EOF"
-{
-  description = "A very basic flake";
-  # Provides abstraction to boiler-code when specifying multi-platform outputs.
-  inputs.flake-utils.url = "github:numtide/flake-utils";
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system: let
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {
-      devShell = pkgs.mkShell {
-        nativeBuildInputs = [ pkgs.hello ];
-      };
-    });
-}
-EOF
-)")
-
-echo "$file_string" > flake.nix
-```
 
 ## 
 
