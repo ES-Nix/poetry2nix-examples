@@ -15,6 +15,10 @@
           config = { allowUnfree = true; };
         };
 
+        poetryEnv = import ./mkPoetryEnv.nix.nix {
+          pkgs = nixpkgs.legacyPackages.${system};
+        };
+
         config = {
           projectDir = ./.;
         };
@@ -86,10 +90,6 @@
       in
       {
         packages.poetry2nixOCIImage = import ./poetry2nixOCIImage.nix {
-          pkgs = nixpkgs.legacyPackages.${system};
-        };
-
-        poetryEnv = import ./mkPoetryEnv.nix.nix {
           pkgs = nixpkgs.legacyPackages.${system};
         };
 
