@@ -6,5 +6,5 @@ __pycache__/
 
 *.tar.gz
 
-.direnv
-
+.direnv/
+.venv/
