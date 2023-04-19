@@ -100,5 +100,11 @@ github:ES-Nix/poetry2nix-examples/flask-hello-in-oci-podman-rootless \
 hook
 ```
 
-
+```bash
+nix \
+develop \
+github:ES-Nix/poetry2nix-examples/flask-hello-in-oci-podman-rootless \
+--command \
 python3 -c 'from flask import Flask'
+```
+
