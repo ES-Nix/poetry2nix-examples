@@ -19,10 +19,6 @@
           pkgs = nixpkgs.legacyPackages.${system};
         };
 
-        config = {
-          projectDir = ./.;
-        };
-
         hook = pkgsAllowUnfree.writeShellScriptBin "hook" ''
           # TODO:
           export TMPDIR=/tmp

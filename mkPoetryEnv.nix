@@ -4,6 +4,10 @@ let
     python = pkgs.python3;
     poetrylock = ./poetry.lock;
     pyproject = ./pyproject.toml;
+
+    config = {
+      projectDir = ./.;
+    };
   };
 in
 pythonEnv
