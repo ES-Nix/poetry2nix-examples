@@ -15,7 +15,7 @@
           config = { allowUnfree = true; };
         };
 
-        poetryEnv = import ./mkPoetryEnv.nix.nix {
+        poetryEnv = import ./mkPoetryEnv.nix {
           pkgs = nixpkgs.legacyPackages.${system};
         };
 
