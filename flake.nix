@@ -98,7 +98,8 @@
         devShell = pkgsAllowUnfree.mkShell {
           buildInputs = with pkgsAllowUnfree; [
             curl
-            (pkgsAllowUnfree.poetry2nix.mkPoetryEnv config)
+            # (pkgsAllowUnfree.poetry2nix.mkPoetryEnv config)
+            poetryEnv
             podman-rootless.defaultPackage.${system}
             poetry
             ripgrep
