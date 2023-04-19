@@ -8,7 +8,7 @@ sudo rm --force poetry2nixOCIImage.tar.gz
 nix build .#poetry2nixOCIImage --out-link poetry2nixOCIImage.tar.gz
 
 podman load < poetry2nixOCIImage.tar.gz
- 
+
 
 timeout \
 10 \
