@@ -93,7 +93,7 @@
           buildInputs = with pkgsAllowUnfree; [
             curl
             poetryEnv
-            podman-rootless.defaultPackage.${system}
+            # podman-rootless.defaultPackage.${system}
             poetry
             ripgrep
             hook

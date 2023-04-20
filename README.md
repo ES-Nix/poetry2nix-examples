@@ -84,6 +84,26 @@ flask_minimal_example
 
 ## 
 
+```bash
+# github:NixOS/nixpkgs/fcb8252e87f3e149b7675efe1a9fdba84e36741d
+nix flake update --override-input nixpkgs github:NixOS/nixpkgs/0a4206a51b386e5cda731e8ac78d76ad924c7125 \
+&& git status \
+&& git add .
+```
+
+```bash
+/nix/store/d44wd6n98f93hjr6q1d1phhh1hw7a17d-python3-3.8.8/bin/python3.8: /nix/store/1jn6apz0fa9h9x7rl3v6vwiymwnjznwv-glibc-2.32-40/lib/libc.so.6: version `GLIBC_2.34' not found (required by /nix/store/mdck89nsfisflwjv6xv8ydj7dj0sj2pn-gcc-11.3.0-lib/lib/libgcc_s.so.1)
+```
+
+
+```bash
+nix \
+build \
+--no-link \
+--print-build-logs \
+github:ES-Nix/poetry2nix-examples/flask-hello-in-oci-podman-rootless#poetry2nixOCIImage
+```
+
 
 ```bash
 git clone https://github.com/ES-Nix/poetry2nix-examples.git \
