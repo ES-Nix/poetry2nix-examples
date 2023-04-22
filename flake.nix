@@ -103,6 +103,8 @@
             # TODO:
             export TMPDIR=/tmp
             echo "Entering the nix devShell"
+
+            # ln -fv "''${poetryEnv}/''${poetryEnv.sitePackages}" .venv
           '';
         };
       });
