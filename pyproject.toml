@@ -29,8 +29,8 @@ license = "MIT"
 homepage = "https://github.com"
 
 [tool.poetry.dependencies]
-python = "^3.8"
-flask = "1.1.0"
+python = "^3.9"
+flask = "2.3.1"
 # markupsafe = "2.0.1"
 
 [tool.poetry.dev-dependencies]
