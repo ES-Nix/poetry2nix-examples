@@ -104,6 +104,7 @@
             poetry
             ripgrep
             hook
+            hookDev
           ];
 
           shellHook = ''
