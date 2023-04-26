@@ -31,6 +31,7 @@ homepage = "https://github.com"
 [tool.poetry.dependencies]
 python = "^3.8"
 flask = "1.*.*"
+markupsafe = "2.0.1"
 
 [tool.poetry.dev-dependencies]
 
