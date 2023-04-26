@@ -34,7 +34,7 @@ let
     findutils
     # gzip
     hello
-    bpytop
+    btop
     iproute
     nettools # why the story name is with an -?
     nano
