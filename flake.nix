@@ -82,6 +82,7 @@
 
             podman \
                 pod \
+                --log-level=debug \
                 rm \
                 --force \
                 --ignore \
