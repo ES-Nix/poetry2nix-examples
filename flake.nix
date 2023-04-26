@@ -24,7 +24,17 @@
           export TMPDIR=/tmp
 
           ${build_and_load}/bin/build_and_load
-          ${podmanTestFlaskAPI}/bin/podman-test-flask-API
+          ${podmanTestFlaskAPI}/bin/podman_test_flask_API
+        '';
+
+        hookDev = pkgsAllowUnfree.writeShellScriptBin "hook_dev" ''
+          # TODO:
+          export TMPDIR=/tmp
+
+          git pull
+
+          ${build_and_load_dev}/bin/build_and_load_dev
+          ${podmanTestFlaskAPI}/bin/podman_test_flask_API
         '';
 
         build_and_load_dev = pkgsAllowUnfree.writeShellScriptBin "build_and_load_dev" ''
@@ -37,46 +47,47 @@
           podman load < result
         '';
 
-        podmanTestFlaskAPI = pkgsAllowUnfree.writeShellScriptBin "podman-test-flask-API" ''
-          set -e
-          POD_NAME=play-with-flask
+        podmanTestFlaskAPI = pkgsAllowUnfree.writeShellScriptBin "podman_test_flask_API" ''
+            set -e
+
+            POD_NAME=play-with-flask
 
         	podman \
-            pod \
-            rm \
-            --force \
-            --ignore \
-            $POD_NAME
+                pod \
+                rm \
+                --force \
+                --ignore \
+                $POD_NAME
 
         	podman \
-            pod \
-            create \
-            --publish=5000:5000 \
-            --name=$POD_NAME
+                pod \
+                create \
+                --publish=5000:5000 \
+                --name=$POD_NAME
 
-          podman \
-            run \
-            --detach=true \
-            --interactive=true \
-            --pod=$POD_NAME \
-            --rm=true \
-            --tty=true \
-            --user=app_user \
-            localhost/numtild-dockertools-poetry2nix:0.0.1 \
-            flask_minimal_example
+            podman \
+                run \
+                --detach=true \
+                --interactive=true \
+                --pod=$POD_NAME \
+                --rm=true \
+                --tty=true \
+                --user=app_user \
+                localhost/numtild-dockertools-poetry2nix:0.0.1 \
+                flask_minimal_example
 
-          sleep 5
+            sleep 5
 
-          curl localhost:5000 | rg 'Hello world!!'
+            curl localhost:5000 | rg 'Hello world!!'
 
-          podman \
-            pod \
-            rm \
-            --force \
-            --ignore \
-            $POD_NAME
+            podman \
+                pod \
+                rm \
+                --force \
+                --ignore \
+                $POD_NAME
 
-          unset POD_NAME
+            unset POD_NAME
         '';
 
       in

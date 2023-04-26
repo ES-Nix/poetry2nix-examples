@@ -129,3 +129,11 @@ github:ES-Nix/poetry2nix-examples/flask-hello-in-oci-podman-rootless \
 python3 -c 'from flask import Flask'
 ```
 
+
+```bash
+nix \
+develop \
+github:ES-Nix/poetry2nix-examples/flask-hello-in-oci-podman-rootless \
+--command \
+python3 -c 'import flask; print(flask.__version__)'
+```
