@@ -79,6 +79,7 @@
             sleep 5
 
             curl localhost:5000 | rg 'Hello world!!'
+            curl localhost:5000/pandas | rg '1.2.2'
 
             podman \
                 pod \
