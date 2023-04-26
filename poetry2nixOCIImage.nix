@@ -25,6 +25,32 @@ let
     )
   ];
 
+  troubleshootPackages = with pkgs; [
+    # https://askubuntu.com/questions/16700/how-can-i-change-my-own-user-id#comment749398_167400
+    # https://unix.stackexchange.com/a/693915
+    acl
+
+    file
+    findutils
+    # gzip
+    hello
+    bpytop
+    iproute
+    nettools # why the story name is with an -?
+    nano
+    netcat
+    ripgrep
+    patchelf
+    binutils
+    mount
+    # bpftrace
+    strace
+    uftrace
+    # gnutar
+    wget
+    which
+  ];
+
 in
 pkgs.dockerTools.buildLayeredImage {
   name = "numtild-dockertools-poetry2nix";
@@ -35,7 +61,9 @@ pkgs.dockerTools.buildLayeredImage {
               pkgs.coreutils
              ]
     ++
-    (nonRootShadowSetup { user = "app_user"; uid = 12345; group = "app_group"; gid = 6789; });
+    (nonRootShadowSetup { user = "app_user"; uid = 12345; group = "app_group"; gid = 6789; })
+    ++
+    troubleshootPackages;
 
   config = {
     # Cmd = [ "${pkgs.bashInteractive}/bin/bash" ];
