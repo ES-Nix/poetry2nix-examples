@@ -23,10 +23,6 @@
           # TODO:
           export TMPDIR=/tmp
 
-          # TODO:
-          podman-setup-script
-          podman-capabilities
-
           ${build_and_load}/bin/build_and_load
           ${podmanTestFlaskAPI}/bin/podman-test-flask-API
         '';
