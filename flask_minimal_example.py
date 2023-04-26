@@ -9,7 +9,7 @@ def index():
     return 'Hello world!!'
 
 @app.route('/pandas')
-def index():
+def index_pandas():
     return pd.__version__
 
 def main():
