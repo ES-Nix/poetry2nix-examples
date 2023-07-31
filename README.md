@@ -29,7 +29,7 @@ github:ES-Nix/poetry2nix-examples/flask-hello-in-oci-podman-rootless#poetry2nixO
 ```
 
 ```bash
-git clone https://github.com/ES-Nix/poetry2nix-examples.git \
+git clone git@github.com:ES-Nix/poetry2nix-examples.git \
 && cd poetry2nix-examples \
 && git checkout flask-hello-in-oci-podman-rootless \
 && direnv allow 1>/dev/null 2>/dev/null
