@@ -3,7 +3,7 @@
 
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
-    podman-rootless.url = "github:ES-Nix/podman-rootless";
+    podman-rootless.url = "github:ES-Nix/podman-rootless/from-nixpkgs";
   };
 
   outputs = { self, nixpkgs, flake-utils, podman-rootless }:
@@ -100,8 +100,8 @@
         devShell = pkgsAllowUnfree.mkShell {
           buildInputs = with pkgsAllowUnfree; [
             curl
-            #poetryEnv
-            # podman-rootless.defaultPackage.${system}
+            poetryEnv
+            podman-rootless.packages.${system}.podman
             poetry
             ripgrep
             hook

@@ -1,4 +1,4 @@
-import pandas as pd
+# import pandas as pd
 
 from flask import Flask
 
@@ -8,9 +8,9 @@ app = Flask(__name__)
 def index():
     return 'Hello world!!'
 
-@app.route('/pandas')
-def index_pandas():
-    return pd.__version__
+# @app.route('/pandas')
+# def index_pandas():
+#     return pd.__version__
 
 def main():
     app.run(host='0.0.0.0')

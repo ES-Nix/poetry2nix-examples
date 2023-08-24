@@ -67,15 +67,16 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1671737304,
-        "narHash": "sha256-BdxYdQvZu+B8+UdsPdnPnkTOCmSqZNvFoNbbJOhty6Y=",
+        "lastModified": 1680378007,
+        "narHash": "sha256-3W5WELu7jazMOOvBlIm9lFIRtduJ6P4YuSvBH52ODFM=",
         "owner": "ES-Nix",
         "repo": "podman-rootless",
-        "rev": "83ff27be5616e3029c2aec2de595f86da081e857",
+        "rev": "b08da5c7702911fd9fec7e3700dce935c1600518",
         "type": "github"
       },
       "original": {
         "owner": "ES-Nix",
+        "ref": "from-nixpkgs",
         "repo": "podman-rootless",
         "type": "github"
       }
