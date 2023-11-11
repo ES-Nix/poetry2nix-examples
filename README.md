@@ -4,7 +4,10 @@
 ## 
 
 ```bash
-nix flake clone github:ES-Nix/poetry2nix-examples --dest poetry2nix-examples
+nix flake clone github:ES-Nix/poetry2nix-examples --dest poetry2nix-examples \
+&& cd poetry2nix-examples \
+&& git checkout flask-hello-in-oci-podman-rootless \
+&& direnv allow 1>/dev/null 2>/dev/null
 ```
 
 
