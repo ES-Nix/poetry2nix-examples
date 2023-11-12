@@ -100,20 +100,18 @@
         devShell = pkgsAllowUnfree.mkShell {
           buildInputs = with pkgsAllowUnfree; [
             curl
-            # poetryEnv
+            poetryEnv
             podman-rootless.packages.${system}.podman
             poetry
             ripgrep
-            hook
-            hookDev
+            # hook
+            # hookDev
           ];
 
           shellHook = ''
             # TODO:
             export TMPDIR=/tmp
             echo "Entering the nix devShell"
-
-
 
             # ln -fv "''${poetryEnv}/''${poetryEnv.sitePackages}" .venv
           '';
