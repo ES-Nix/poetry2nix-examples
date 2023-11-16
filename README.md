@@ -74,3 +74,23 @@ nix flake update --override-input nixpkgs github:NixOS/nixpkgs/0a4206a51b386e5cd
 && git status \
 && git add .
 ```
+
+
+```bash
+pkgs.poetry2nix.mkPoetryApplication {
+  projectDir = ./.;
+
+  overrides = pkgs.poetry2nix.overrides.withDefaults (self: super: {
+
+    pathspec = super.pathspec.overridePythonAttrs (
+      old: {
+        buildInputs = (old.buildInputs or [ ]) ++ [ self.flit-core ];
+      }
+    );
+  });
+}
+```
+Refs.:
+- https://github.com/nix-community/poetry2nix/issues/218#issuecomment-1511405519
+
+

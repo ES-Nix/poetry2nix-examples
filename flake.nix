@@ -113,6 +113,7 @@
             export TMPDIR=/tmp
             echo "Entering the nix devShell"
 
+            python3 -c 'import flask'
             # ln -fv "''${poetryEnv}/''${poetryEnv.sitePackages}" .venv
           '';
         };
