@@ -100,6 +100,7 @@
         devShell = pkgsAllowUnfree.mkShell {
           buildInputs = with pkgsAllowUnfree; [
             curl
+            dive
             poetryEnv
             podman-rootless.packages.${system}.podman
             poetry
@@ -112,9 +113,11 @@
             # TODO:
             export TMPDIR=/tmp
             echo "Entering the nix devShell"
-
+echo "${poetryEnv}"
+export PYTHONPATH="${poetryEnv}"
             python3 -c 'import flask'
-            # ln -fv "''${poetryEnv}/''${poetryEnv.sitePackages}" .venv
+            ln -sfv "${poetryEnv}" .venv
+            # ln -sfv "''\${poetryEnv}/''\${poetryEnv.sitePackages}" .venv
           '';
         };
       });

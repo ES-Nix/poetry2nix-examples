@@ -76,21 +76,30 @@ nix flake update --override-input nixpkgs github:NixOS/nixpkgs/0a4206a51b386e5cd
 ```
 
 
+
+
 ```bash
-pkgs.poetry2nix.mkPoetryApplication {
-  projectDir = ./.;
+rm -v poetry2nixOCIImage.tar.gz
 
-  overrides = pkgs.poetry2nix.overrides.withDefaults (self: super: {
+nix build --print-build-logs --print-out-paths .#poetry2nixOCIImage --out-link poetry2nixOCIImage.tar.gz
 
-    pathspec = super.pathspec.overridePythonAttrs (
-      old: {
-        buildInputs = (old.buildInputs or [ ]) ++ [ self.flit-core ];
-      }
-    );
-  });
-}
+podman load < poetry2nixOCIImage.tar.gz
+
+
+podman \
+run \
+--interactive=true \
+--rm=true \
+--tty=true \
+numtild-dockertools-poetry2nix:0.0.1 \
+flask_minimal_example
 ```
-Refs.:
-- https://github.com/nix-community/poetry2nix/issues/218#issuecomment-1511405519
+
+
+```bash
+podman load < $(nix build --no-link --print-build-logs --print-out-paths .#poetry2nixOCIImage)
+```
+
+podman inspect  --format "imageId: {{.Id}} size: {{.Size}}" localhost/numtild-dockertools-poetry2nix:0.0.1
 
 

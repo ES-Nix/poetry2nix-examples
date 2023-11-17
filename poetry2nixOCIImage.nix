@@ -57,21 +57,23 @@ pkgs.dockerTools.buildLayeredImage {
   tag = "0.0.1";
   contents = [
               poetry2nixOCIImage
-              pkgs.bashInteractive
-              pkgs.coreutils
+              # pkgs.bashInteractive
+              # pkgs.coreutils
+              pkgs.busybox
              ]
-    ++
-    (nonRootShadowSetup { user = "app_user"; uid = 12345; group = "app_group"; gid = 6789; })
-    ++
-    troubleshootPackages;
+     ++
+     (nonRootShadowSetup { user = "app_user"; uid = 12345; group = "app_group"; gid = 6789; })
+    # ++
+    # troubleshootPackages
+    ;
 
   config = {
     # Cmd = [ "${pkgs.bashInteractive}/bin/bash" ];
     # Entrypoint = [ entrypoint ];
-    Entrypoint = [ "${pkgs.bashInteractive}/bin/bash" ];
+    # Entrypoint = [ "${pkgs.bashInteractive}/bin/bash" ];
 
     Env = with pkgs; [
-            "SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bunle.crt"
+            # "SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bunle.crt"
             # TODO: it needs a big refactor
             # "PATH=/root/.nix-profile/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:/nix/var/nix/profiles/default/sbin:/bin:/sbin:/usr/bin:/usr/sbin"
             # "MANPATH=/root/.nix-profile/share/man:/home/nixuser/.nix-profile/share/man:/run/current-system/sw/share/man"
