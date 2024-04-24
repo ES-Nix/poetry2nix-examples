@@ -1,4 +1,6 @@
-## This is an nix flake example of an python application built using poetr2nix 
+## This is a nix flake example of a python application 
+
+Built using poetr2nix. 
 
 
 ## 
@@ -100,6 +102,8 @@ flask_minimal_example
 podman load < $(nix build --no-link --print-build-logs --print-out-paths .#poetry2nixOCIImage)
 ```
 
-podman inspect  --format "imageId: {{.Id}} size: {{.Size}}" localhost/numtild-dockertools-poetry2nix:0.0.1
+```bash
+podman inspect  --format "size: {{.Size}}" localhost/numtild-dockertools-poetry2nix:0.0.1
+```
 
 

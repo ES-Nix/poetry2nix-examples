@@ -7,35 +7,35 @@ let
 
     projectDir = ./.;
 
-  # https://github.com/nix-community/poetry2nix/issues/218#issuecomment-1511405519
-  overrides = pkgs.poetry2nix.overrides.withDefaults (self: super: {
+    # https://github.com/nix-community/poetry2nix/issues/218#issuecomment-1511405519
+    overrides = pkgs.poetry2nix.overrides.withDefaults (self: super: {
 
-    blinker = super.blinker.overridePythonAttrs (
-      old: {
-        buildInputs = (old.buildInputs or [ ]) ++ [ self.flit-core ];
-      }
-    );
+      blinker = super.blinker.overridePythonAttrs (
+        old: {
+          buildInputs = (old.buildInputs or [ ]) ++ [ self.flit-core ];
+        }
+      );
 
-    werkzeug = super.werkzeug.overridePythonAttrs (
-      old: {
-        buildInputs = (old.buildInputs or [ ]) ++ [ self.flit-core ];
-      }
-    );
+      werkzeug = super.werkzeug.overridePythonAttrs (
+        old: {
+          buildInputs = (old.buildInputs or [ ]) ++ [ self.flit-core ];
+        }
+      );
 
-    # https://pypi.org/project/Flask/#history
-    flask = super.flask.overridePythonAttrs (
-      old: {
-        buildInputs = (old.buildInputs or [ ]) ++ [ self.flit-core ];
-      }
-    );
+      # https://pypi.org/project/Flask/#history
+      flask = super.flask.overridePythonAttrs (
+        old: {
+          buildInputs = (old.buildInputs or [ ]) ++ [ self.flit-core ];
+        }
+      );
 
-    pandas = super.pandas.overridePythonAttrs (
-      old: {
-        buildInputs = (old.buildInputs or [ ]) ++ [ self.versioneer ];
-      }
-    );
+      pandas = super.pandas.overridePythonAttrs (
+        old: {
+          buildInputs = (old.buildInputs or [ ]) ++ [ self.versioneer ];
+        }
+      );
 
-  });
+    });
 
   };
 in

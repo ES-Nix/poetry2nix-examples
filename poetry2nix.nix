@@ -7,7 +7,7 @@ pkgs.poetry2nix.mkPoetryApplication {
   # python = pkgs.pypy3;
   # python = pkgs.pkgsStatic.python3;
   /*
-  python = pkgs.python3Minimal.overrideAttrs
+    python = pkgs.python3Minimal.overrideAttrs
         (oldAttrs: {
           tzdata = pkgs.tzdata;
           rebuildBytecode = false;

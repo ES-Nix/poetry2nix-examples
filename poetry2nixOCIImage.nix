@@ -56,16 +56,16 @@ pkgs.dockerTools.buildLayeredImage {
   name = "numtild-dockertools-poetry2nix";
   tag = "0.0.1";
   contents = [
-              poetry2nixOCIImage
-              # pkgs.bashInteractive
-              # pkgs.coreutils
-              pkgs.busybox
-             ]
-     ++
-     (nonRootShadowSetup { user = "app_user"; uid = 12345; group = "app_group"; gid = 6789; })
+    poetry2nixOCIImage
+    # pkgs.bashInteractive
+    # pkgs.coreutils
+    pkgs.busybox
+  ]
+  ++
+  (nonRootShadowSetup { user = "app_user"; uid = 12345; group = "app_group"; gid = 6789; })
     # ++
     # troubleshootPackages
-    ;
+  ;
 
   config = {
     # Cmd = [ "${pkgs.bashInteractive}/bin/bash" ];
@@ -73,17 +73,17 @@ pkgs.dockerTools.buildLayeredImage {
     # Entrypoint = [ "${pkgs.bashInteractive}/bin/bash" ];
 
     Env = with pkgs; [
-            # "SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bunle.crt"
-            # TODO: it needs a big refactor
-            # "PATH=/root/.nix-profile/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:/nix/var/nix/profiles/default/sbin:/bin:/sbin:/usr/bin:/usr/sbin"
-            # "MANPATH=/root/.nix-profile/share/man:/home/nixuser/.nix-profile/share/man:/run/current-system/sw/share/man"
-            # "NIX_PAGER=cat" # TODO: document it
-            # "NIX_PATH=nixpkgs=${nixFlakes}"
-            # "NIX_SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt"
-            # "ENV=/etc/profile"
-            # "GIT_SSL_CAINFO=${cacert}/etc/ssl/certs/ca-bunle.crt"
-            # "USER=root"
-            # "HOME=/root"
-      ];
-    };
+      # "SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bunle.crt"
+      # TODO: it needs a big refactor
+      # "PATH=/root/.nix-profile/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:/nix/var/nix/profiles/default/sbin:/bin:/sbin:/usr/bin:/usr/sbin"
+      # "MANPATH=/root/.nix-profile/share/man:/home/nixuser/.nix-profile/share/man:/run/current-system/sw/share/man"
+      # "NIX_PAGER=cat" # TODO: document it
+      # "NIX_PATH=nixpkgs=${nixFlakes}"
+      # "NIX_SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt"
+      # "ENV=/etc/profile"
+      # "GIT_SSL_CAINFO=${cacert}/etc/ssl/certs/ca-bunle.crt"
+      # "USER=root"
+      # "HOME=/root"
+    ];
+  };
 }
