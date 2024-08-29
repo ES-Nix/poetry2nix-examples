@@ -17,6 +17,7 @@ run \
 --interactive=true \
 --rm=true \
 --tty=true \
+--publish=5000:5000 \
 numtild-dockertools-poetry2nix:0.0.1 \
 flask_minimal_example
 

@@ -66,6 +66,25 @@ github:ES-Nix/poetry2nix-examples/flask-hello-in-oci-podman-rootless \
 python3 -c 'import flask; print(flask.__version__)'
 ```
 
+```bash
+nix \
+develop \
+github:ES-Nix/poetry2nix-examples/flask-hello-in-oci-podman-rootless \
+--command \
+flask_minimal_example
+```
+
+
+```bash
+podman \
+run \
+--interactive=true \
+--rm=true \
+--tty=true \
+--publish=5000:5000 \
+numtild-dockertools-poetry2nix:0.0.1 \
+flask_minimal_example
+```
 
 ### How to update
 
