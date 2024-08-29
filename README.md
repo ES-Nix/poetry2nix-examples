@@ -1,6 +1,6 @@
 ## This is a nix flake example of a python application 
 
-Built using poetr2nix. 
+Built using poetry2nix. 
 
 
 ## 
